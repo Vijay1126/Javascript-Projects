@@ -59,10 +59,6 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
             nextPlayer()
         }
     }
-    
-  
-
-    //Check if the dude won or not
 
 });
 
