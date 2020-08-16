@@ -1,16 +1,33 @@
 
-
 var express         = require('express'),
     app             = express(),
     bodyParser      = require("body-parser"),
-    mongoose        = require("mongoose");
-    Campground      = require("./models/campground")
-    seedDB          = require("./seeds")
-
+    mongoose        = require("mongoose"),
+    Campground      = require("./models/campground"),
+    seedDB          = require("./seeds"),
+    passport        = require("passport"),
+    LocalStrategy   = require("passport-local"),
+    Comment         = require("./models/comment"),
+    User            = require("./models/user")
 seedDB();
 mongoose.connect("mongodb://localhost:27017/yelp_camp",{useNewUrlParser: true, useUnifiedTopology: true});
 app.use(bodyParser.urlencoded({extended: true}))
 app.set("view engine", "ejs")
+app.use(express.static(__dirname+"/public"));
+console.log("User",User)
+app.use(require("express-session")({
+    secret: "This is the secret page you see after log in",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+// passport.use(new LocalStrategy(User.authenticate()));
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
+
+
 
 app.get("/", function(req,res){
     res.render("landing")
