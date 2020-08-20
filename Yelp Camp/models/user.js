@@ -7,10 +7,6 @@ var UserSchema = new mongoose.Schema({
     password: String
 });
 
-// UserSchema.methods.authenticate = function(password) {      
-//     return this.password === password;
-//   }
-
 UserSchema.plugin(passportLocalMongoose)
 
-module.export = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", UserSchema);
